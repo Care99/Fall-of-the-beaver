@@ -4,21 +4,33 @@ using UnityEngine;
 
 public class moveNote : MonoBehaviour
 {
-    public Rigidbody2D cuerpo;
+    public GameObject cuerpo;
     public float velocidadNota;
-    public int alturaNota;
-    Vector2 velocidad;
     // Start is called before the first frame update
     void Start()
     {
-        cuerpo = gameObject.GetComponent<Rigidbody2D>();
-        cuerpo.position = new Vector2(4, alturaNota);
-        velocidad = new Vector2(-velocidadNota, 0);
+        cuerpo = gameObject.GetComponent<GameObject>();
+        cuerpo.GetComponent<Rigidbody2D>().position = new Vector2(9, cuerpo.GetComponent<Rigidbody2D>().position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        cuerpo.MovePosition(cuerpo.position + velocidad * Time.fixedDeltaTime);
+        transform.position -= (Vector3)transform.right * velocidadNota * Time.fixedDeltaTime;
+        if(cuerpo.GetComponent<Transform>().position.x < 10)
+        {
+            Destroy(cuerpo);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        int altura = (int)transform.position.y;
+        UnityEngine.KeyCode teclaPresionada = altura == 4 ? KeyCode.Z : KeyCode.X;
+        /*&&Input.GetKeyDown(teclaPresionada))*/
+        /*&&Input.GetKeyDown(teclaPresionada)*/
+        if (collision.tag == "Bad" || collision.tag == "Good")
+        {
+            Destroy(gameObject);
+        }
     }
 }
