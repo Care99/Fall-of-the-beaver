@@ -5,7 +5,6 @@ using UnityEngine;
 public class PointsZone : MonoBehaviour
 {
     public string goodTag, badTag;
-
     // Start is called before the first frame update
     void Start()
     {
