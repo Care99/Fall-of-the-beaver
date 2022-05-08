@@ -22,13 +22,13 @@ public class internalScore : MonoBehaviour
     void actualizarTroncos(int cantidadTroncos)
     {
         Debug.Log(cantidadTroncos);
-        if (cantidadTroncos == -1)
+        if (cantidadTroncos < 1)
         {
             Debug.Log("Perdiste!");
         }
         else
         {
-            troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().enabled = !troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().isVisible;
+            troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().sortingOrder = (troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().sortingOrder + 1) % 2;
         }
     }
     void Update()
@@ -45,14 +45,8 @@ public class internalScore : MonoBehaviour
             puntajeConsecutivo++;
             if( puntajeConsecutivo%2 == 0 && cantidadTroncos < 7 )
             {
-                if (cantidadTroncos == 6)
-                {
-                    cantidadTroncos = 7;
-                }
-                else
-                {
-                    actualizarTroncos(++cantidadTroncos);
-                }
+                cantidadTroncos++;
+                actualizarTroncos(cantidadTroncos);
             }
         }
         else if(teclaX)
@@ -61,14 +55,12 @@ public class internalScore : MonoBehaviour
             notasFallidas++;
             if( notasFallidas%3 == 0 )
             {
-                if(cantidadTroncos == 1)
+                if(cantidadTroncos == 7)
                 {
-                    cantidadTroncos = 0;
+                    cantidadTroncos--;
                 }
-                else
-                {
-                    actualizarTroncos(--cantidadTroncos);
-                }
+                actualizarTroncos(cantidadTroncos);
+                cantidadTroncos--;
             }
         }
     }
