@@ -13,6 +13,12 @@ public class internalScore : MonoBehaviour
     void Start()
     {
         troncos = gameObject.GetComponentsInChildren<SpriteRenderer>();
+        troncos[0].GetComponent<SpriteRenderer>().enabled = false;
+        troncos[1].GetComponent<SpriteRenderer>().enabled = false;
+        troncos[2].GetComponent<SpriteRenderer>().enabled = false;
+        troncos[3].GetComponent<SpriteRenderer>().enabled = false;
+        troncos[4].GetComponent<SpriteRenderer>().enabled = false;
+        troncos[5].GetComponent<SpriteRenderer>().enabled = false;
     }
     void gameOver()
     {
@@ -28,12 +34,12 @@ public class internalScore : MonoBehaviour
         }
         else
         {
-            troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().sortingOrder = (troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().sortingOrder + 1) % 2;
+            troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().enabled = !troncos[cantidadTroncos - 1].GetComponent<SpriteRenderer>().isVisible;
         }
     }
     void Update()
     {
-        bool chequeoNota = true;
+        //bool chequeoNota = true;
         bool teclaZ = false;
         bool teclaX = false;
         teclaZ = Input.GetKeyDown("z");
@@ -41,7 +47,7 @@ public class internalScore : MonoBehaviour
         //bool chequeoNota = inputNota();
         if (teclaZ)
         {
-            puntaje++;
+            puntaje+=50;
             puntajeConsecutivo++;
             if( puntajeConsecutivo%2 == 0 && cantidadTroncos < 7 )
             {
