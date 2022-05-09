@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject objetoTemp;
+    public bool objetoTempCollider;
     public static GameManager current = null;
     private static bool created;
     public GameObject panelInstructions;

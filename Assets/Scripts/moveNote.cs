@@ -10,14 +10,13 @@ public class moveNote : MonoBehaviour
     void Start()
     {
         cuerpo = gameObject.GetComponent<GameObject>();
-        cuerpo.GetComponent<Rigidbody2D>().position = new Vector2(9, cuerpo.GetComponent<Rigidbody2D>().position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position -= (Vector3)transform.right * velocidadNota * Time.fixedDeltaTime;
-        if(cuerpo.GetComponent<Transform>().position.x < 10)
+        if(transform.position.x < 10)
         {
             Destroy(cuerpo);
         }
@@ -26,11 +25,23 @@ public class moveNote : MonoBehaviour
     {
         int altura = (int)transform.position.y;
         UnityEngine.KeyCode teclaPresionada = altura == 4 ? KeyCode.Z : KeyCode.X;
-        /*&&Input.GetKeyDown(teclaPresionada))*/
-        /*&&Input.GetKeyDown(teclaPresionada)*/
-        if (collision.tag == "Bad" || collision.tag == "Good")
+        if( collision.tag=="Bad" )
         {
-            Destroy(gameObject);
+            Debug.Log(Input.GetKeyDown(teclaPresionada));
+            if( Input.GetKeyDown(teclaPresionada) )
+            {
+                Debug.Log(Input.GetKeyDown(teclaPresionada));
+                Destroy(gameObject);
+            }
+        }
+        if( collision.tag=="Good" )
+        {
+            Debug.Log(Input.GetKeyDown(teclaPresionada));
+            if( Input.GetKeyDown(teclaPresionada) )
+            {
+                Debug.Log(Input.GetKeyDown(teclaPresionada));
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -5,30 +5,23 @@ using UnityEngine;
 public class generarNotas : MonoBehaviour
 {
     public GameObject prefabNota;
-    List<GameObject> notasSuperiores;
-    List<GameObject> notasInferiores;
+    GameObject notaInstanciada;
     // Start is called before the first frame update
+    void generarNota()
+    {
+        int ubicacion = (int)Random.Range((float)0.00,(float)1.99);
+        Vector3 posicionNota = new Vector3(9,2+(2*ubicacion),0);
+        notaInstanciada = Instantiate(prefabNota,posicionNota,Quaternion.identity) as GameObject;
+    }
     void Start()
     {
-        
+        InvokeRepeating("generarNota",0,1);   
     }
 
     // Update is called once per frame
     void Update()
     {
-        int ubicacion = (int)System.Math.Floor(Random.Range((float)1.00,(float)2.99));
-        if(ubicacion==1)
-        {
-            notasSuperiores.Add( Instantiate(prefabNota) as GameObject);
-            notasSuperiores[0].GetComponent<Rigidbody2D>().position = new Vector2(9,4);
-            notasSuperiores[0].GetComponent<SpriteRenderer>().sortingOrder = 2;
-        }
-        else
-        {
-            notasInferiores.Add(Instantiate(prefabNota) as GameObject);
-            notasInferiores[0].GetComponent<Rigidbody2D>().position = new Vector2(9, 2);
-            notasInferiores[0].GetComponent<SpriteRenderer>().sortingOrder = 2;
-        }
+
     }
 
     
