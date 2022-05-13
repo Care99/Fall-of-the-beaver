@@ -6,23 +6,17 @@ public class generarNotas : MonoBehaviour
 {
     public GameObject prefabNota;
     GameObject notaInstanciada;
+    public int tiempo;
     // Start is called before the first frame update
     void generarNota()
     {
-        int ubicacion = (int)Random.Range((float)0.00,(float)1.99);
-        Vector3 posicionNota = new Vector3(9,2+(2*ubicacion),0);
+        int ubicacion = Random.Range(0,2);
+        Vector3 posicionNota = new Vector3(6.5f,3+(ubicacion),0);
         notaInstanciada = Instantiate(prefabNota,posicionNota,Quaternion.identity) as GameObject;
     }
-    void Start()
+    public void StartGenerator()
     {
-        InvokeRepeating("generarNota",0,1);   
+        InvokeRepeating("generarNota",0,tiempo);   
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    
+       
 }

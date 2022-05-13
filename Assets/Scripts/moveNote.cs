@@ -9,39 +9,45 @@ public class moveNote : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cuerpo = gameObject.GetComponent<GameObject>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position -= (Vector3)transform.right * velocidadNota * Time.fixedDeltaTime;
-        if(transform.position.x < 10)
+        if (GameManager.current.startThisGame)
         {
-            Destroy(cuerpo);
-        }
+            int speed = Random.Range(1, 5);
+            transform.position -= (Vector3)transform.right * (velocidadNota * speed) * Time.fixedDeltaTime;
+        }   
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int altura = (int)transform.position.y;
         UnityEngine.KeyCode teclaPresionada = altura == 4 ? KeyCode.Z : KeyCode.X;
-        if( collision.tag=="Bad" )
+        switch (collision.tag)
         {
-            Debug.Log(Input.GetKeyDown(teclaPresionada));
-            if( Input.GetKeyDown(teclaPresionada) )
-            {
-                Debug.Log(Input.GetKeyDown(teclaPresionada));
+            case "Bad":
+                GameManager.current.inGoodZone = false;
+                GameManager.current.inBadZone = true;
+                GameManager.current.tmpNote = gameObject;
+                break;
+            case "Good":
+                GameManager.current.inBadZone = false;
+                GameManager.current.inGoodZone = true;
+                GameManager.current.tmpNote = gameObject;
+                break;
+            case "Destroy":
+                GameManager.current.inBadZone = false;
+                GameManager.current.inGoodZone = false;
+                GameManager.current.badPoints++;
+                GameManager.current.castorAnimation("isBad", true);
+                GameManager.current.badPlay();
                 Destroy(gameObject);
-            }
-        }
-        if( collision.tag=="Good" )
-        {
-            Debug.Log(Input.GetKeyDown(teclaPresionada));
-            if( Input.GetKeyDown(teclaPresionada) )
-            {
-                Debug.Log(Input.GetKeyDown(teclaPresionada));
-                Destroy(gameObject);
-            }
+                break;
+            default:
+                break;
         }
     }
+
 }
